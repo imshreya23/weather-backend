@@ -8,7 +8,7 @@ info:
 
 `GET /v1/hello` "
   version: "1.0.0"
-  title: "Shreya Assignment 4"
+  title: "Shreya Assignment 5"
   contact:
     email: "dhumes@oregonstate.edu"
   # license:
@@ -45,6 +45,11 @@ paths:
         description: "API key"
         required: true
         type: "string"
+      - name: "token"  
+        in: "query"
+        description: "Enter access token"
+        required: true
+        type: "string"
       responses:
         "200":
           description: "Success...."
@@ -61,6 +66,12 @@ paths:
       operationId: "get_hello"
       produces:
       - "application/json"
+      parameters:
+      - name: "token"
+        in: "query" 
+        description: "Enter Token:"
+        required: true
+        type: "string"
       responses:
         200:
           description: "Have a nice day!"
