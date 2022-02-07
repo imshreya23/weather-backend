@@ -1,4 +1,3 @@
-
 const express = require('express')
 const app = express()
 const port = 3000
@@ -9,10 +8,9 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
-
-// var request = require("request")
 key= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlNocmV5YSIsInBhc3N3b3JkIjoiYWIxMiJ9.b8DjV_h0Rq1ywgcfD2NjABUVptDM-3TiCUUEZUOpEdA"
 
+// var request = require("request")
 
 app.use(function (req, response, next) {
 	// Website you wish to allow to connect
@@ -40,6 +38,8 @@ app.use(function (req, response, next) {
 	// Pass to next layer of middleware
 	next();
   });
+
+
 // endpoint for `GET/data/2.5/weather` 
 app.get('/data/2.5/weather', get_weather)
 app.get('/v1/weather' ,get_weather)
@@ -50,13 +50,27 @@ app.post('/v1/auth', post_auth)
 
 function get_weather(req,response)
 {
-	response.json({"coord":{"lon":-123.262,"lat":44.5646},"weather":[{"id":741,"main":"Fog","description":"fog","icon":"50n"}],"base":"stations","main":{"temp":278.16,"feels_like":278.16,"temp_min":275.73,"temp_max":281,"pressure":1025,"humidity":78},"visibility":402,"wind":{"speed":0,"deg":0},"clouds":{"all":100},"dt":1642227125,"sys":{"type":2,"id":2012991,"country":"US","sunrise":1642175199,"sunset":1642208235},"timezone":-28800,"id":5720727,"name":"Corvallis","cod":200})
+  if(req.query.token == key){
+    response.json({"coord":{"lon":-123.262,"lat":44.5646},"weather":[{"id":741,"main":"Fog","description":"fog","icon":"50n"}],"base":"stations","main":{"temp":278.16,"feels_like":278.16,"temp_min":275.73,"temp_max":281,"pressure":1025,"humidity":78},"visibility":402,"wind":{"speed":0,"deg":0},"clouds":{"all":100},"dt":1642227125,"sys":{"type":2,"id":2012991,"country":"US","sunrise":1642175199,"sunset":1642208235},"timezone":-28800,"id":5720727,"name":"Corvallis","cod":200})
+  }
+	
 }
 
 function get_hello(req,response)
 {
-  response.json({"hello": "Good Morning!"})
+  if (req.query.token == key){
+    response.json({
+      "hello": "Hello Shreya"
+    });
+
+  }
+  else {
+    response.sendStatus(401);
+  }
+  
 }
+
+
 
 function post_auth(req,res){
   let usernames = ['Shreya','Sh','abc']
@@ -78,5 +92,3 @@ function post_auth(req,res){
 app.listen(port, () => {
   console.log("Server listening at port " + port)
 })
-#token added
-
