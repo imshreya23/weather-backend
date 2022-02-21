@@ -16,6 +16,9 @@ app.use(function (req, response, next) {
 	// Website you wish to allow to connect
 	const allowedOrigins = ['https://editor.swagger.io', 'https://hoppscotch.io'];
 	const origin = req.headers.origin;
+	const pathToSwaggerUi = "/home/ec2-user/swagger-ui/dist"
+        app.use(express.static(pathToSwaggerUi))
+
 		
 	if (allowedOrigins.includes(origin)) {
 	  response.setHeader('Access-Control-Allow-Origin', origin);
