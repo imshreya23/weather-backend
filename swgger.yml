@@ -103,4 +103,3 @@ components:
           description: Get Token
       xml:
         name: User
-
